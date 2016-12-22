@@ -79,7 +79,12 @@ public class TcpClient {
 					System.out.println("Started Tcp Client: " + getServerInfo());
 				} else {
 					System.out.println("Started Tcp Client Failed: " + getServerInfo());
-					f.channel().eventLoop().schedule(() -> doConnect(), 1, TimeUnit.SECONDS);
+					f.channel().eventLoop().schedule(new Runnable() {
+						@Override
+						public void run() {
+							doConnect();
+						}
+					}, 1, TimeUnit.SECONDS);
 				}
 			}
 		});

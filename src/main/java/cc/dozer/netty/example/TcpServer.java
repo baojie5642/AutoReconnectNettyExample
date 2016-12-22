@@ -73,7 +73,12 @@ public final class TcpServer {
                 } else {
                     System.out.println("Started Tcp Server Failed: " + localPort);
 
-                    f.channel().eventLoop().schedule(() -> doBind(), 1, TimeUnit.SECONDS);
+                    f.channel().eventLoop().schedule(new Runnable() {
+						@Override
+						public void run() {
+							doBind();
+						}
+					}, 1, TimeUnit.SECONDS);
                 }
             }
         });
